@@ -64,9 +64,39 @@ namespace N64InfoGen.Utils
 			tw.WriteLine("Entire File MD5 : {0}", fileMD5);
 			tw.WriteLine("Manufacturer ID : {0} (0x{1:X})", manufacturerID, (int)manufacturerID);
 			tw.WriteLine("Cartridge ID    : {0}", cartridgeID);
-			tw.WriteLine("Country Code    : {0} (0x{1:X})", countryCode, (int)countryCode);
+			tw.WriteLine("Country Code    : {0} (0x{1:X}) ({2})", countryCode, (int)countryCode, GetCountryName(countryCode));
 			tw.WriteLine("------------------------------------------------------------");
 			tw.WriteLine("\n");
+		}
+
+		// Returns name corresponding to countryCode
+		// info retrieved from http://forum.pj64-emu.com/showthread.php?t=2239
+		private static string GetCountryName(char code)
+		{
+			switch (code)
+			{
+				case 'A': return "Not documented";
+				case 'B': return "Brazilian";
+				case 'C': return "Chinese";
+				case 'D': return "German";
+				case 'E': return "North America";
+				case 'F': return "French";
+				case 'G': return "Gateway 64 (NTSC)";
+				case 'H': return "Dutch";
+				case 'I': return "Italian";
+				case 'J': return "Japanese";
+				case 'K': return "Korean";
+				case 'L': return "Gateway 64 (PAL)";
+				case 'N': return "Canadian";
+				case 'P': return "European";
+				case 'S': return "Spanish";
+				case 'U': return "Australian";
+				case 'W': return "Scandinavian";
+				case 'X': return "Other";
+				case 'Y': return "Other";
+				case 'Z': return "Other";
+				default : return "Unknown";
+			}
 		}
 
 		// Handles missing zeros.

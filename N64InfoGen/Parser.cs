@@ -24,15 +24,18 @@ namespace N64InfoGen
 			{
 				// Get all the files in the dir tree.
 				List<string> files = Directory.EnumerateFiles(searchPath, ".", SearchOption.AllDirectories)
-				    .Where(s => s.EndsWith(".n64", true, null) || 
+				    .Where(s => s.EndsWith(".n64", true, null) ||
+				                s.EndsWith(".v64", true, null) ||
 				                s.EndsWith(".z64", true, null)).ToList();
 
 				using (TextWriter tw = new StreamWriter(outputDir, true))
 				{
 					foreach (string file in files)
 					{
-						if (file.EndsWith(".n64", true, null))
+						if (file.EndsWith(".n64", true, null) ||
+						    file.EndsWith(".v64", true, null))
 						{
+							// For the information generated, .v64 can be treated the same as .n64
 							N64.ParseFile(file, tw);
 						}
 						else if (file.EndsWith(".z64", true, null))
@@ -46,8 +49,10 @@ namespace N64InfoGen
 			{
 				using (TextWriter tw = new StreamWriter(outputDir, true))
 				{
-					if (searchPath.EndsWith(".n64", true, null))
+					if (searchPath.EndsWith(".n64", true, null) || 
+					    searchPath.EndsWith(".v64", true, null))
 					{
+						// For the information generated, .v64 can be treated the same as .n64
 						N64.ParseFile(searchPath, tw);
 					}
 					else if (searchPath.EndsWith(".z64", true, null))
